@@ -1,19 +1,22 @@
 import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
 
-const Statistics = (props) => {
-  const globalScore = props.good - props.bad
-  const totalVotes = props.good + props.neutral + props.bad
+const Statistics = ({ text, value }) => {
+  return (
+    <div>
+      <p>{text} {value}</p>
+    </div>
+  )
+}
 
-  return (<div>
-    <h1>statistics</h1>
-    <p>good {props.good}</p>
-    <p>neutral {props.neutral}</p>
-    <p>bad {props.bad}</p>
-    <p>all {totalVotes}</p>
-    <p>average {globalScore / totalVotes}</p>
-    <p>positive {props.good / totalVotes}</p>
-  </div>)
+const Button = ({ text, handleClick }) => {
+  return (
+    <button
+      onClick={handleClick}
+    >
+      {text}
+    </button>
+  )
 }
 
 const App = () => {
@@ -34,31 +37,28 @@ const App = () => {
     setBad(bad + 1)
     console.log({ bad })
   }
+  const globalScore = good - bad
+  const totalVotes = good + neutral + bad
+
 
   return (
     <div>
       <h1>give feedback</h1>
+      <Button text="good" handleClick={handleClickGood} />
+      <Button text="neutral" handleClick={handleClickNeutral} />
+      <Button text="bad" handleClick={handleClickBad} />
 
-      <button
-        onClick={handleClickGood}
-      >
-        good
-      </button>
-
-      <button
-        onClick={handleClickNeutral}
-      >
-        neutral
-      </button>
-
-      <button
-        onClick={handleClickBad}
-      >
-        bad
-      </button>
-      {good + neutral + bad === 0
+      {totalVotes === 0
         ? <p>No feedback given</p>
-        : <Statistics good={good} neutral={neutral} bad={bad} />
+        : <div>
+          <h1>statistics</h1>
+          <Statistics text="good" value={good} />
+          <Statistics text="neutral" value={neutral} />
+          <Statistics text="bad" value={bad} />
+          <Statistics text="all" value={totalVotes} />
+          <Statistics text="average" value={globalScore / totalVotes} />
+          <Statistics text="positive" value={good / totalVotes} />
+        </div>
       }
     </div>
   )
