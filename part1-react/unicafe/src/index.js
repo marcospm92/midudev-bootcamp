@@ -20,6 +20,9 @@ const App = () => {
     console.log({ bad })
   }
 
+  const globalScore = good - bad
+  const totalVotes = good + neutral + bad
+
   return (
     <div>
       <h1>give feedback</h1>
@@ -46,6 +49,9 @@ const App = () => {
       <p>good {good}</p>
       <p>neutral {neutral}</p>
       <p>bad {bad}</p>
+      <p>all {totalVotes}</p>
+      <p>average {globalScore / totalVotes}</p>
+      <p>positive {good / totalVotes}</p>
     </div>
   )
 }
