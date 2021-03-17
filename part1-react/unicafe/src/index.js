@@ -1,11 +1,9 @@
 import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
 
-const Statistics = ({ text, value }) => {
+const Statistics = ({ text, value, unit }) => {
   return (
-    <div>
-      <p>{text} {value}</p>
-    </div>
+    <tr><td>{text}</td><td>{value} {unit}</td></tr>
   )
 }
 
@@ -52,12 +50,16 @@ const App = () => {
         ? <p>No feedback given</p>
         : <div>
           <h1>statistics</h1>
-          <Statistics text="good" value={good} />
-          <Statistics text="neutral" value={neutral} />
-          <Statistics text="bad" value={bad} />
-          <Statistics text="all" value={totalVotes} />
-          <Statistics text="average" value={globalScore / totalVotes} />
-          <Statistics text="positive" value={good / totalVotes} />
+          <table>
+            <tbody>
+              <Statistics text="good" value={good} />
+              <Statistics text="neutral" value={neutral} />
+              <Statistics text="bad" value={bad} />
+              <Statistics text="all" value={totalVotes} />
+              <Statistics text="average" value={globalScore / totalVotes} />
+              <Statistics text="positive" value={100 * (good / totalVotes)} unit="%" />
+            </tbody>
+          </table>
         </div>
       }
     </div>
