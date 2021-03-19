@@ -3,8 +3,9 @@ import ReactDOM from 'react-dom'
 
 const App = (props) => {
   const [selected, setSelected] = useState(0)
+  const [votes, setVotes] = useState([0, 0, 0, 0, 0, 0])
 
-  const handleClick = () => {
+  const handleClickNext = () => {
     setSelected(generateRandomInteger())
   }
 
@@ -12,10 +13,22 @@ const App = (props) => {
     return Math.floor(Math.random() * 6)
   }
 
+  const NumVotes = ({ votes }) => {
+    return <p>has {votes} votes</p>
+  }
+
+  const handleClickVote = () => {
+    const newVotesState = [...votes]
+    newVotesState[selected] = newVotesState[selected] + 1
+    setVotes(newVotesState)
+  }
+
   return (
     <div>
       <p>{props.anecdotes[selected]}</p>
-      <button onClick={handleClick}>next anecdote</button>
+      <NumVotes votes={votes[selected]} />
+      <button onClick={handleClickVote}>vote</button>
+      <button onClick={handleClickNext}>next anecdote</button>
     </div >
   )
 }
