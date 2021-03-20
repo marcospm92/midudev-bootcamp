@@ -27,8 +27,7 @@ const Course = ({ course }) => {
 
 const Total = ({ parts }) => {
   const reducer = (accumulator, currentValue) => accumulator + currentValue.exercises;
-  let initialValue = 0
-  let sumOfExercises = parts.reduce(reducer, initialValue);
+  let sumOfExercises = parts.reduce(reducer, 0);
   return <p><strong>total of {sumOfExercises} exercises</strong></p>
 }
 
