@@ -42,10 +42,10 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      <div>
+        filter shown with: <input onChange={handleFilterChange} value={newFilter} />
+      </div>
       <form onSubmit={handleSubmit}>
-        <div>
-          filter shown with: <input onChange={handleFilterChange} value={newFilter} />
-        </div>
         <h2>add a new</h2>
         <div>
           name: <input onChange={handleNameChange} value={newName} />
