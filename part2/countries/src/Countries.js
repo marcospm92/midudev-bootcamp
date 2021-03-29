@@ -1,6 +1,6 @@
 import { SingleCountry } from './SingleCountry.js'
 
-export const Countries = ({ countries, filter }) => {
+export const Countries = ({ countries, filter, handleButtonClick }) => {
     const filteredCountries =
         countries
             .filter(item => (
@@ -14,7 +14,7 @@ export const Countries = ({ countries, filter }) => {
     } else if (filteredCountries.length <= 10) {
         return (
             filteredCountries.map(item => (
-                <p key={item.alpha2Code}>{item.name}</p>
+                <p key={item.alpha2Code}>{item.name} <button onClick={handleButtonClick} value={item.name}>show</button></p>
             ))
         )
     } else {

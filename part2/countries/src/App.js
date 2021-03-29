@@ -20,10 +20,14 @@ const App = () => {
     setFilter(event.target.value)
   }
 
+  const handleButtonClick = (event) => {
+    setFilter(event.target.value)
+  }
+
   return (
     <div>
       <Filter handleFilterChange={handleFilterChange} filter={filter} />
-      <Countries countries={countries} filter={filter} />
+      <Countries countries={countries} filter={filter} handleButtonClick={handleButtonClick} />
     </div >
   );
 }
