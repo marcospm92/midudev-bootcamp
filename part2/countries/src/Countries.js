@@ -1,6 +1,6 @@
 import { SingleCountry } from './SingleCountry.js'
 
-export const Countries = ({ countries, filter, handleButtonClick }) => {
+export const Countries = ({ countries, filter, weather, handleButtonClick, handleCapitalChange }) => {
     const filteredCountries =
         countries
             .filter(item => (
@@ -8,8 +8,9 @@ export const Countries = ({ countries, filter, handleButtonClick }) => {
             ))
 
     if (filteredCountries.length === 1) {
+        handleCapitalChange(filteredCountries[0].capital)
         return (
-            <SingleCountry country={filteredCountries[0]} />
+            <SingleCountry country={filteredCountries[0]} weather={weather} />
         )
     } else if (filteredCountries.length <= 10) {
         return (
