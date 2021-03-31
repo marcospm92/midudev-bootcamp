@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { getAllPersons, createPerson } from './services/persons'
+import { getAllPersons, createPerson, deletePerson } from './services/persons'
 
 const Filter = ({ handleFilterChange, newFilter }) => {
   return (
@@ -25,7 +25,7 @@ const PersonForm = ({ handleSubmit, handleNameChange, newName, handleNumberChang
   )
 }
 
-const Persons = ({ persons, newFilter }) => {
+const Persons = ({ persons, newFilter, handleDeleteButton }) => {
   return (
     <div>
       {
@@ -33,16 +33,17 @@ const Persons = ({ persons, newFilter }) => {
           .filter((person) => (
             person.name.toUpperCase().includes(newFilter.toUpperCase())))
           .map((person) => (
-            <SinglePerson key={person.name} name={person.name} number={person.number} />
+            <SinglePerson key={person.name} name={person.name} number={person.number}
+              handleDeleteButton={handleDeleteButton} id={person.id} />
           ))
       }
     </div>
   )
 }
 
-const SinglePerson = ({ name, number }) => {
+const SinglePerson = ({ name, number, handleDeleteButton, id }) => {
   return (
-    <p>{name} {number}</p>
+    <p>{name} {number} <button onClick={handleDeleteButton} value={id}>delete</button></p>
   )
 }
 
@@ -90,6 +91,24 @@ const App = () => {
     setNewFilter(event.target.value)
   }
 
+  const handleDeleteButton = (event) => {
+    const id = parseInt(event.target.value)
+    const personName = persons.filter(person => (
+      person.id === id
+    )).map((person) => (
+      person.name
+    ))
+
+    if (window.confirm(`Delete ${personName}?`) === true) {
+      deletePerson(id)
+        .then(() => {
+          setPersons(persons.filter(person => (
+            person.id !== id
+          )));
+        })
+    }
+  }
+
   return (
     <div>
       <h2>Phonebook</h2>
@@ -102,7 +121,7 @@ const App = () => {
 
       <h3>Numbers</h3>
 
-      <Persons persons={persons} newFilter={newFilter} />
+      <Persons persons={persons} newFilter={newFilter} handleDeleteButton={handleDeleteButton} />
     </div>
   )
 }

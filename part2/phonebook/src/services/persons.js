@@ -13,3 +13,10 @@ export const createPerson = (personToAddToState) => {
             return response.data
         })
 }
+
+export const deletePerson = (id) => {
+    return axios.delete(`http://localhost:3001/persons/${id}`)
+        .then((response) => {
+            return response.data
+        })
+}
