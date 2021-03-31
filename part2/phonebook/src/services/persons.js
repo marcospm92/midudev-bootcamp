@@ -20,3 +20,10 @@ export const deletePerson = (id) => {
             return response.data
         })
 }
+
+export const updatePersonNumber = (id, personToAddToState) => {
+    return axios.put(`http://localhost:3001/persons/${id}`, personToAddToState)
+        .then((response) => {
+            return response.data
+        })
+}

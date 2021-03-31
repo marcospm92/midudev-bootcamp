@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { getAllPersons, createPerson, deletePerson } from './services/persons'
+import { getAllPersons, createPerson, deletePerson, updatePersonNumber } from './services/persons'
 
 const Filter = ({ handleFilterChange, newFilter }) => {
   return (
@@ -68,7 +68,21 @@ const App = () => {
     }
 
     if (persons.some(person => person.name === personToAddToState.name)) {
-      window.alert(`${personToAddToState.name} is already added to phonebook`)
+      if (window.confirm(`${personToAddToState.name} is already added to phonebook,replace the old number with a new one?`)) {
+        const updatedPersonId = parseInt(persons.filter(person => (
+          person.name === personToAddToState.name
+        )).map((person) => (
+          person.id
+        )))
+        updatePersonNumber(updatedPersonId, personToAddToState)
+          .then(response => {
+            setPersons(persons.map(person => (
+              person.id === updatedPersonId ?
+                response :
+                person
+            )))
+          })
+      }
     } else {
       createPerson(personToAddToState)
         .then(newPerson => {
