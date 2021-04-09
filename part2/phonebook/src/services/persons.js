@@ -1,21 +1,21 @@
 import axios from 'axios'
 
 export const getAllPersons = () => {
-    return axios.get("http://localhost:3001/persons")
+    return axios.get("http://localhost:3001/api/persons")
         .then((response) => {
             return response.data
         })
 }
 
 export const createPerson = (personToAddToState) => {
-    return axios.post("http://localhost:3001/persons", personToAddToState)
+    return axios.post("http://localhost:3001/api/persons", personToAddToState)
         .then((response) => {
             return response.data
         })
 }
 
 export const deletePerson = (id) => {
-    return axios.delete(`http://localhost:3001/persons/${id}`)
+    return axios.delete(`http://localhost:3001/api/persons/${id}`)
         .then((response) => {
             return response.data
         })
